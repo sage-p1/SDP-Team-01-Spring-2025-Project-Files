@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {% if button1 or button2 %}
+        <h1>Click below to view results in Grafana</h1>
+        <a href="http://localhost:3000/?orgId=1&from=now-6h&to=now&timezone=browser">Link</a>
+    {% else %}  
+        <h1>You must upload data and generate results before accessing this page</h1>
+    {% endif %} 
+</body>
+</html>

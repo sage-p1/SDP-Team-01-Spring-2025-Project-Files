@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Time Series Analysis Data Upload</h1>    
+    <h2>Upload compatible data file here (csv, excel file, etc.):</h2>
+    <form method="POST" enctype="multipart/form-data" required>
+        <label for="time">Time Data Field:</label><br>
+        <input type="text" name="time" required><br>
+        <label for="target">Target Data Field:</label><br>
+        <input type="text" name="target" required><br>
+        {{form.hidden_tag()}}
+        {{form.file()}}<br>
+        {{form.submit()}}
+    </form>
+    <h2>Alternatively, submit text as input in csv format:</h2>
+    <form action="/generate" method="POST" required>
+        <label for="time">Time Data Field:</label><br>
+        <input type="text" name="time" required><br>
+        <label for="target">Target Data Field:</label><br>
+        <input type="text" name="target" required><br>
+        <label for="data">Raw data:</label><br>
+        <textarea id="data" name="data" required></textarea><br>
+        <input type="Submit" class="file_submit">
+    </form>
+</body>
+</html>
