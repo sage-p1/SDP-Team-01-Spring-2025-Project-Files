@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Results - Benchmarking Large Language Models for Time Series Analysis</title>
+{% endblock %}
+
+{% block body %}
+    {% if output %}
+        <h2>Click below to see results in Grafana</h2>
+        <a href="{{ snapshot_url }}">Link</a>
+    {% else %}  
+        <h1>You must upload data and generate results before accessing this page</h1>
+    {% endif %}
+{% endblock %}
