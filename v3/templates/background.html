@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Project Background - Benchmarking Large Language Models for Time Series Analysis</title>
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Original Proposal</h2>
+        <h3>Motivation</h3>
+        <p>Time series data are ubiquitous in various real-world applications, 
+            ranging from finance to healthcare. Traditional methods such as ARIMA, 
+            LSTM, etc., have shown their effectiveness in domain specific applications. 
+            Recently, Large Language Models (LLMs) has shown its great power in various 
+            nature language related tasks, e.g., Q&A, machine translation, standard tests 
+            (e.g., SAT, GRE, etc.). Since time series data and language data share many 
+            common properties, there is a significant potential in applying existing 
+            large language models to time series analysis. This project aims to explore 
+            potential solutions to apply and compare existing LLMs to different time 
+            series analysis tasks. </p>
+        <h3>Requirements</h3>
+        <ol>
+            <li>Download and deploy a LLM (e.g., GPT2/GPT3/Llama 2/3) on a GPU server/cloud environment. Perform standard language inference task based on existing LLMs.</li>
+            <li>Develop an interface that a user can upload time series data (such as stock prices, weather data etc. ), preprocess, tokenize the data, and showcase the results.</li>
+            <li>Utilize a large language model to obtain representations of the time series data, interpret the results, and explore useful patterns.</li>
+            <li>Design algorithm/prompting mechanism so that LLM can perform classification tasks.</li>
+            <li>Design algorithm/prompting mechanism so that LLM can perform forecasting tasks.</li>
+            <li>Compare different pre-trained LLM models.</li>
+            <li>Try to explore the explainability of LLMs.</li>
+            <li>Try to finetune the LLM if possible.</li>
+            <li>Provide analytics dashboards that display findings and patterns for time series data.</li>
+        </ol>
+        <h3>Preferred Technologies</h3>
+            <p>ML: Pytorch and Python</p>
+            <p>Webpage:  Frontend: Web browser interface implementation</p>
+            <p>Option 1: Gradio interface (preferred) A python library that allows you to rapidly generate user interfaces</p>
+            <p>Option 2: MESA package in Python </p>
+            <p>Option 3: Other UI design platform</p>
+        <h3>Potential project expansion potential</h3>
+        <ol>
+            <li>Integrate real-time data sources for live predictions</li>
+        </ol>
+    </div>
+    <div>
+        <h2>Semester 1 Findings</h2>
+    </div>
+    <div>
+        <h2>Semester 2 Progress</h2>
+    </div>
+    <div>
+        <h2>Future Goals</h2>
+    </div>
+{% endblock %}
