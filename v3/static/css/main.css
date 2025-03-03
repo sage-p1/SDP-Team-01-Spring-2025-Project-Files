@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.portrait {
+    height: 50%;
+    width: 50%;
+}
+
