@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    background: #2e967f !important;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #111;
+}
+
+nav a {
+    text-decoration: none;
+    color: #111;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff914d;
+}
+
+
+nav a {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff914d;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+    max-width: 600px;
+    margin: auto;
+}
+
+form label {
+    font-weight: bold;
+}
+
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-container label {
+    font-size: 16px;
+    line-height: 1;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-left: -100px;
+    position: relative;
+    top: 30px;
+}
+
+
+
+
+button {
+    background: #ff914d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e07b3d;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
