@@ -96,14 +96,14 @@ def forecast(pipeline, df, time, target, filename, prediction_length, num_window
 
         data = {time:next_times, "Low": low.tolist(), "Median": median.tolist(), "High": high.tolist()}
 
-        output_path = f"static/output/{filename.split(".")[0]}_output_chronos{i}.csv"
+        output_path = f"static/output/{filename.split('.')[0]}_output_chronos{i}.csv"
         output_df = pd.DataFrame(data)
         output_df.to_csv(output_path, index=False)
 
     # write output path
     # this file tells app.py where to generally find the output
     with open("output_path.txt", "w") as f:
-        f.write(f"static/output/{filename.split(".")[0]}_output_.csv")
+        f.write(f"static/output/{filename.split('.')[0]}_output_.csv")
         f.close()
         
     # write current window to know which output file to display
@@ -153,8 +153,8 @@ def post(filename, time, target, start_time, end_time, chronos_model):
         dashboard_payload["dashboard"]["panels"][0]["targets"][1]["columns"][0]["selector"] = time
         dashboard_payload["dashboard"]["time"]["from"] = start_time
         dashboard_payload["dashboard"]["time"]["to"] = end_time
-        dashboard_payload["dashboard"]["panels"][0]["title"] = f"{filename.split(".")[0]} Panel (using {chronos_model})"
-        dashboard_payload["dashboard"]["title"] = f"{filename.split(".")[0]} Dashboard"
+        dashboard_payload["dashboard"]["panels"][0]["title"] = f"{filename.split('.')[0]} Panel (using {chronos_model})"
+        dashboard_payload["dashboard"]["title"] = f"{filename.split('.')[0]} Dashboard"
 
         # create the dashboard using POST
         create_dashboard_response = requests.post(
