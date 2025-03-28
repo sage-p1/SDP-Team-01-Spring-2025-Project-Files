@@ -1,26 +1,20 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>Home - Benchmarking Large Language Models for Time Series Analysis</title>
+<title>Generate Forecast - Benchmarking Large Language Models for Time Series Analysis</title>
 <script>
-    function displayDatatypeForm() { // javascript function to hide and show different tabs
+    function displayDatatypeForm() {
         const selectElement = document.getElementById("upload_method");
         const selectedValue = selectElement.value;
         const displayDivs = document.querySelectorAll(".datatype");
-        
-        // hide all display elements
-        displayDivs.forEach(div => {
-            div.style.display = "none";
-        });
-        
-        // show the selected display
+
+        displayDivs.forEach(div => div.style.display = "none");
+
         const selectedDiv = document.getElementById(selectedValue);
-        if (selectedDiv) {
-            selectedDiv.style.display = "block";
-        }
+        if (selectedDiv) selectedDiv.style.display = "block";
     }
 
-    function displayDelimiter() { // toggle on optional delimiter field for csv files
+    function displayDelimiter() {
         const csvDiv = document.getElementById("csv");
         csvDiv.style.display = "none";
         const displayDivs = document.querySelectorAll(".datatype");
@@ -29,54 +23,47 @@
             if (div.style.display == "block") {
                 const selects = div.querySelectorAll("select");
                 selects.forEach(select => {
-                    const selectedValue = select.value;
-                        if (selectedValue == "csv") {
-                            csvDiv.style.display = "block";
-                        }
-                    });
-                }
-            });
-        }
-
-    function displaySubmit() { // display submit only if all required input is filled
-        const method = document.getElementById('upload_method').value;
-        
-        // if all required fields for local upload are met
-        const local_datatype = document.getElementById("local_datatype").value;
-        const file = document.getElementById("file").value;
-        const local = local_datatype !== '' && file !== '' && method == "local";
-
-        // if all required fields for url are met
-        const url_datatype = document.getElementById("url_datatype").value;
-        const link = document.getElementById("link").value;
-        const url = url_datatype !== '' && link !== '' && method == "url";
-
-        // if all required fields for inline text are met
-        const inline_datatype = document.getElementById("inline_datatype").value;
-        const inline_text = document.getElementById("inline_text").value;
-        const inline = inline_datatype !== '' && inline_text.trim() !== '' && method == "inline";
-
-        const submitDiv = document.getElementById("submit");
-        if (local || url || inline) {
-            submitDiv.style.display = 'block';
-        } else {
-            submitDiv.style.display = 'none';
-        }
+                    if (select.value === "csv") csvDiv.style.display = "block";
+                });
+            }
+        });
     }
 
-    function displayAll() { // helper to run multiple functions
+    function displaySubmit() {
+        const method = document.getElementById('upload_method').value;
+
+        const local = method === "local" &&
+            document.getElementById("local_datatype").value !== '' &&
+            document.getElementById("file").value !== '';
+
+        const url = method === "url" &&
+            document.getElementById("url_datatype").value !== '' &&
+            document.getElementById("link").value !== '';
+
+        const inline = method === "inline" &&
+            document.getElementById("inline_datatype").value !== '' &&
+            document.getElementById("inline_text").value.trim() !== '';
+
+        const submitDiv = document.getElementById("submit");
+        submitDiv.style.display = (local || url || inline) ? 'block' : 'none';
+    }
+
+    function displayAll() {
         displayDatatypeForm();
         displayDelimiter();
         displaySubmit();
     }
+    document.addEventListener("DOMContentLoaded", function () {
+  // Force the <div id="local"> to show for testing:
+  const localBlock = document.getElementById("local");
+  localBlock.style.display = "block";
 
-    function stopEnter(event) { // prevent the enter key from being used to submit early
-        if (event.key === 'Enter') {
-            event.preventDefault(); 
-            return false;
-        }
-    }
+  // Then run your normal logic:
+  displayAll();
+});
+
 </script>
+
 {% endblock %}
 
 {% block body %}
@@ -101,7 +88,7 @@
     <div>
         <label for="chronos_model">Chronos Model:</label>
         <select id="chronos_model" name="chronos_model" required>
-            <option value="chronos-t5-tiny" >Tiny</option>
+            <option value="chronos-t5-tiny">Tiny</option>
             <option value="chronos-t5-mini">Mini</option>
             <option value="chronos-t5-small">Small</option>
             <option value="chronos-t5-base">Base</option>
@@ -115,14 +102,13 @@
     <div>
         <label for="upload_method">Upload Method:</label>
         <select id="upload_method" name="upload_method" onchange="displayAll()" required>
-            <option value="" selected></option>
-            <option value="local">From my Computer</option>
+            <option value="local" selected>From my Computer</option>
             <option value="url">URL</option>
             <option value="inline">Inline Text</option>
         </select>
     </div>
 
-    <div id="local" class="datatype" style="display:none;">
+    <div id="local" class="datatype">
         <label for="local_datatype">Datatype:</label>
         <select id="local_datatype" name="local_datatype" class="input" onchange="displayAll()">
             <option value="" selected></option>
@@ -132,7 +118,7 @@
             <option value="xlsx">XLSX</option>
         </select>
         <label for="file">Select a file:</label>
-        <input type="file" id="file" name="file" class="input" accept=".csv, .json, .xml, .xlsx"oninput="displaySubmit()">
+        <input type="file" id="file" name="file" class="input" accept=".csv, .json, .xml, .xlsx" oninput="displaySubmit()">
     </div>
 
     <div id="url" class="datatype" style="display:none;">
@@ -169,15 +155,7 @@
     </div>  
 
     <div id="submit" class="submit" style="display:none;" required>
-        <input type="submit" name="submit" value="Generate forecasts!">
+        <input type="submit" name="submit" value="Generate Forecasts!">
     </div>
 </form>
-<script>
-
-    window.onload = function () {
-        displayAll();  
-    };
-</script>
-
-
 {% endblock %}

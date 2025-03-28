@@ -142,3 +142,32 @@ button:hover {
     font-weight: bold;
     border-bottom: 2px solid #1C4B8F;
 }
+
+.home-text {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 20px;
+    font-size: 18px;
+    color: #1C2127;
+    line-height: 1.6;
+}
+
+.section-text {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 20px;
+    font-size: 18px;
+    color: #1C2127;
+    line-height: 1.6;
+}
+
+.section-title {
+    color: #1C4B8F;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 40px;
+    margin-bottom: 24px;
+}
+
