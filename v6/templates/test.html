@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IT=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Buttton Click</title>
+</head>
+
+<body>
+    <button onclick="callPython()">Click me</button>
+
+    <script>
+        function callPython() {
+            fetch('/button_click')
+                .then(response => response.json())
+                .then(data => console.log(data));
+        }
+    </script>
+</body>
+
+</html>
