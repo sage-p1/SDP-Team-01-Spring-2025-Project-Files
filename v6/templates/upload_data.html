@@ -67,26 +67,22 @@
 {% endblock %}
 
 {% block body %}
-<h2>Time Series Analysis Data Upload</h2>
+<h2>Let's Forecast Data!</h2>
 <form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
-    <div>
-        <label for="time">Time Data Field:</label>
+    <div class="steps">
+        <h2>Step 1: Choose your preferences.</h2>
+        <label for="time">Time Data Field</label>
         <input type="text" name="time" required> 
-    </div>
-    <div>
-        <label for="target">Target Data Field:</label>
+        <label for="target">Target Data Field</label>
         <input type="text" name="target" required>
-    </div>
-    <div>
-        <label for="prediction_length">Prediction Length (12 by Default):</label>
+        <label for="prediction_length">Prediction Length (12 by Default)</label>
         <input type="number" id="prediction_length" name="prediction_length" min="1" max="64">
-    </div>
-    <div>
-        <label for="num_windows">Number of Windows (10 by Default):</label>
+        <label for="num_windows">Number of Windows (10 by Default)</label>
         <input type="number" id="num_windows" name="num_windows" min="1">
     </div>
-    <div>
-        <label for="chronos_model">Chronos Model:</label>
+    <div class="steps"">
+        <h2>Step 2: Choose a Chronos Model.</h2>
+        <label for="chronos_model">Chronos Model</label>
         <select id="chronos_model" name="chronos_model" required>
             <option value="chronos-t5-tiny">Tiny</option>
             <option value="chronos-t5-mini">Mini</option>
@@ -99,8 +95,9 @@
             <option value="chronos-bolt-base">BOLT Base</option>
         </select>
     </div>
-    <div>
-        <label for="upload_method">Upload Method:</label>
+    <div class="steps">
+        <h2>Step 3: Upload your data.</h2>
+        <label for="upload_method">Upload Method</label>
         <select id="upload_method" name="upload_method" onchange="displayAll()" required>
             <option value="local" selected>From my Computer</option>
             <option value="url">URL</option>
@@ -108,8 +105,8 @@
         </select>
     </div>
 
-    <div id="local" class="datatype">
-        <label for="local_datatype">Datatype:</label>
+    <div id="local" class="steps">
+        <label for="local_datatype">Datatype</label>
         <select id="local_datatype" name="local_datatype" class="input" onchange="displayAll()">
             <option value="" selected></option>
             <option value="csv">CSV</option>
@@ -117,12 +114,12 @@
             <option value="xml">XML</option>
             <option value="xlsx">XLSX</option>
         </select>
-        <label for="file">Select a file:</label>
+        <label for="file">Select a file</label>
         <input type="file" id="file" name="file" class="input" accept=".csv, .json, .xml, .xlsx" oninput="displaySubmit()">
     </div>
 
     <div id="url" class="datatype" style="display:none;">
-        <label for="url_datatype">Datatype:</label>
+        <label for="url_datatype">Datatype</label>
         <select id="url_datatype" name="url_datatype" class="input" onchange="displayAll()" >
             <option value="" selected></option>
             <option value="csv">CSV</option>
@@ -131,7 +128,7 @@
             <option value="sheets">Google Sheets</option>
             <option value="excel">Microsoft Excel</option>
         </select>
-        <label for="link">URL:</label>
+        <label for="link">URL</label>
         <input type='text' id="link" name="link" class="input" oninput="displaySubmit()">
     </div>
 
