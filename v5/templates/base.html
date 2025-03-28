@@ -10,8 +10,10 @@
 <body>
     <h2>UConn CSE Senior Design Project Team 1</h2>
     <div class="logo">
-        <h1>Benchmarking Large Language Models</h1>
-        <h1>for Time Series Analysis</h1>
+        <a href="/home" class="{% if request.path == '/home' %}active{% endif %}">
+            <h1>Benchmarking Large Language Models</h1>
+            <h1>for Time Series Analysis</h1>
+        </a>
     </div>
     <nav class="nav-bar">
         <a href="/how_it_works" class="{% if request.path == '/how_it_works' %}active{% endif %}">How It Works</a>
