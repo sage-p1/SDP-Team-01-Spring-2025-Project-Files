@@ -57,8 +57,9 @@ h2 {
     text-decoration: none;
     color: #1C2127;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: bold; 
 }
+
 
 .overview {
     display: flex;
@@ -137,3 +138,7 @@ button:hover {
     }
 }
 
+.nav-bar a.active {
+    font-weight: bold;
+    border-bottom: 2px solid #1C4B8F;
+}
