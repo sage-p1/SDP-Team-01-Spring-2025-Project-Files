@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block headscript %}
+{% endblock %}
+
+{% block body %}
+<h2 class="section-title">How It Works</h2>
+<div class="section-text">
+    <p>
+        This application allows users to upload time series data and generate forecasts using pre-trained Large Language Models (LLMs).
+    </p>
+
+    <p>
+        You can upload your dataset in various formats (CSV, JSON, XML, Excel), specify the target and time fields, and choose from a selection of Chronos models.
+        The application then processes your input, slices it into windows, and applies a forecasting model to generate predictions.
+    </p>
+
+    <p>
+        The results are visualized through an embedded Grafana dashboard, where you can explore the predicted trends and compare them against your historical data.
+    </p>
+
+    <p>
+        You can also slide through time windows using the navigation buttons provided, enabling a step-by-step exploration of how forecasts evolve.
+    </p>
+</div>
+{% endblock %}

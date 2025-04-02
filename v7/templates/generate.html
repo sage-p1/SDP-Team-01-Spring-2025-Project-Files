@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block headscript %}
+{% endblock %}
+
+{% block body %}
+{% if filename %}
+    <h1>File {{filename}} successfully uploaded</h1>
+    <form action="/result" method="POST">
+        <h3>Click here to generate time series data:</h3>
+        <button name="button1">Generate Time Series Results</button>
+        <input type="hidden" value={{filename}} name="filename">
+        <input type="hidden" value={{time}} name="time">
+        <input type="hidden" value={{target}} name="target">
+    </form>
+    {% elif data %}
+    <h1>Raw data successfully uploaded</h1>
+    <form action="/result" method="POST">
+        <h3>Click here to generate time series data:</h3>
+        <button name="button2">Generate Time Series Results</button>
+        <input type="hidden" value={{time}} name="time">
+        <input type="hidden" value={{target}} name="target">
+    </form>
+    {% else %}  
+    <h1>You must upload data before accessing this page</h1>
+    {% endif %}  
+{% endblock %}
