@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block headscript %}
+<title>Generate Forecast - Benchmarking Large Language Models for Time Series Analysis</title>
+<script>
+    function displayDatatypeForm() {
+        const selectElement = document.getElementById("upload_method");
+        const selectedValue = selectElement.value;
+        const displayDivs = document.querySelectorAll(".datatype");
+
+        displayDivs.forEach(div => div.style.display = "none");
+
+        const selectedDiv = document.getElementById(selectedValue);
+        if (selectedDiv) selectedDiv.style.display = "block";
+    }
+
+    function displayDelimiter() {
+        const csvDiv = document.getElementById("csv");
+        csvDiv.style.display = "none";
+        const displayDivs = document.querySelectorAll(".datatype");
+
+        displayDivs.forEach(div => {
+            if (div.style.display == "block") {
+                const selects = div.querySelectorAll("select");
+                selects.forEach(select => {
+                    if (select.value === "csv") csvDiv.style.display = "block";
+                });
+            }
+        });
+    }
+
+    function displaySubmit() {
+        const method = document.getElementById('upload_method').value;
+
+        const local = method === "local" &&
+            document.getElementById("local_datatype").value !== '' &&
+            document.getElementById("file").value !== '';
+
+        const url = method === "url" &&
+            document.getElementById("url_datatype").value !== '' &&
+            document.getElementById("link").value !== '';
+
+        const inline = method === "inline" &&
+            document.getElementById("inline_datatype").value !== '' &&
+            document.getElementById("inline_text").value.trim() !== '';
+
+        const submitDiv = document.getElementById("submit");
+        submitDiv.style.display = (local || url || inline) ? 'block' : 'none';
+    }
+
+    function displayAll() {
+        displayDatatypeForm();
+        displayDelimiter();
+        displaySubmit();
+    }
+ 
+    function stopEnter(event) { // prevent the enter key from being used to submit early
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
+            return false;
+        }
+    }
+
+</script>
+{% endblock %}
+
+{% block body %}
+<h2>Let's Forecast Data!</h2>
+<form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
+    <div class="steps">
+        <h2>Step 1: Choose your preferences.</h2>
+        <label for="time">Time Data Field</label>
+        <input type="text" name="time" required> 
+        <label for="target">Target Data Field</label>
+        <input type="text" name="target" required>
+        <label for="prediction_length">Prediction Length (12 by Default)</label>
+        <input type="number" id="prediction_length" name="prediction_length" min="1" max="64">
+        <label for="num_windows">Number of Windows (10 by Default)</label>
+        <input type="number" id="num_windows" name="num_windows" min="1">
+    </div>
+    <div class="steps">
+        <h2>Step 2: Choose a Chronos Model.</h2>
+        <label for="chronos_model">Chronos Model</label>
+        <select id="chronos_model" name="chronos_model" required>
+            <option value="chronos-t5-tiny">Tiny</option>
+            <option value="chronos-t5-mini">Mini</option>
+            <option value="chronos-t5-small">Small</option>
+            <option value="chronos-t5-base">Base</option>
+            <option value="chronos-t5-large">Large</option>
+            <option value="chronos-bolt-tiny" selected>BOLT Tiny</option>
+            <option value="chronos-bolt-mini">BOLT Mini</option>
+            <option value="chronos-bolt-small">BOLT Small</option>
+            <option value="chronos-bolt-base">BOLT Base</option>
+        </select>
+    </div>
+    <div class="steps">
+        <h2>Step 3: Upload your data.</h2>
+        <label for="upload_method">Upload Method</label>
+        <select id="upload_method" name="upload_method" onchange="displayAll()" required>
+            <option value="" selected></option>
+            <option value="local">From my Computer</option>
+            <option value="url">URL</option>
+            <option value="inline">Inline Text</option>
+        </select>
+    </div>
+
+    <div id="local" class="datatype" style="display:none;">
+        <label for="local_datatype">Datatype</label>
+        <select id="local_datatype" name="local_datatype" class="input" onchange="displayAll()">
+            <option value="" selected></option>
+            <option value="csv">CSV</option>
+            <option value="json">JSON</option>
+            <option value="xml">XML</option>
+            <option value="xlsx">XLSX</option>
+        </select>
+        <label for="file">Select a file</label>
+        <input type="file" id="file" name="file" class="input" accept=".csv, .json, .xml, .xlsx" oninput="displaySubmit()">
+    </div>
+
+    <div id="url" class="datatype" style="display:none;">
+        <label for="url_datatype">Datatype</label>
+        <select id="url_datatype" name="url_datatype" class="input" onchange="displayAll()" >
+            <option value="" selected></option>
+            <option value="csv">CSV</option>
+            <option value="json">JSON</option>
+            <option value="xml">XML</option>
+            <option value="sheets">Google Sheets</option>
+            <option value="excel">Microsoft Excel</option>
+        </select>
+        <label for="link">URL</label>
+        <input type='text' id="link" name="link" class="input" oninput="displaySubmit()">
+    </div>
+
+    <div id="inline" class="datatype" style="display:none;">
+        <label for="inline_datatype">Datatype:</label>
+        <select id="inline_datatype" name="inline_datatype" class="input" onchange="displayAll()">
+            <option value="" selected></option>
+            <option value="csv">CSV</option>
+            <option value="json">JSON</option>
+            <option value="xml">XML</option>
+        </select>
+        <label for="inline_text">Enter Data:</label>
+        <textarea id="inline_text" name="inline_text" class="input" oninput="displaySubmit()"></textarea>
+        <label for="inline_filename">File Name (optional):</label>
+        <input type="text" name="inline_filename">
+    </div>
+
+    <div id="csv" class="csv" style="display:none;">
+        <label for="delimiter">Delimiter (optional):</label>
+        <input type="text" name="delimiter">
+    </div>  
+
+    <div id="submit" class="submit" style="display:none;" required>
+        <input type="submit" name="submit" value="Generate Forecasts!">
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <title>Benchmarking LLMs for Time Series Analysis</title>
+    {% block headscript %}
+    {% endblock %}
+</head>
+<body>
+    <h2>UConn CSE Senior Design Project Team 1</h2>
+    <div class="logo">
+        <a href="/home">
+            <h1>Benchmarking Large Language Models</h1>
+            <h1>for Time Series Analysis</h1>
+        </a>
+    </div>
+    <nav class="nav-bar">
+        <a href="/how_it_works" class="{% if request.path == '/how_it_works' %}active{% endif %}">How It Works</a>
+        <a href="/background" class="{% if request.path == '/background' %}active{% endif %}">Project Background</a>
+        <a href="/team" class="{% if request.path == '/team' %}active{% endif %}">Meet the Team</a>
+        <a href="/video" class="{% if request.path == '/video' %}active{% endif %}">Presentation</a>
+        <a href="/references" class="{% if request.path == '/references' %}active{% endif %}">References</a>
+        <a href="/upload" class="{% if request.path == '/upload' %}active{% endif %}">Generate Time Series Forecast</a>
+    </nav>
+    
+
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

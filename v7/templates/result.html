@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block headscript %}
+{% endblock %}
+
+{% block body %}
+    {% if output %}
+        <h2>Click below to see results in Grafana</h2>
+        <a href="{{ snapshot_url }}" target="_blank">Link</a>
+        
+        <div>
+            <form method="post">
+                <input type="button" id="left" name="left" value="Move Window Left" onclick="moveLeft()"/>
+            </form>
+            <form  method="post">
+                <input type="button" id="right" name="right" value="Move Window Right" onclick="moveRight()"/>
+            </form>
+        </div>
+        <div>
+            <p>Start Time:</p>
+            <p id="start_time">{{ start_time }}</p>
+            <p>End Time:</p>
+            <p id="end_time">{{ end_time }}</p>
+        </div>
+
+        <script>
+            function moveLeft() {
+                fetch("/left") // get left route
+                    .then(response => response.json())
+                    .then(data => { // update start_time and end_time
+                        document.getElementById("start_time").innerText = data.start_time;
+                        document.getElementById("end_time").innerText = data.end_time;
+                    })
+            }
+
+            function moveRight() {
+                fetch("/right") // get right route
+                    .then(response => response.json())
+                    .then(data => { // update start_time and end_time
+                        document.getElementById("start_time").innerText = data.start_time;
+                        document.getElementById("end_time").innerText = data.end_time;
+                    })
+            }
+        </script>
+        
+    {% else %}  
+        <h1>You must upload data and generate results before accessing this page</h1>
+    {% endif %}
+{% endblock %}
