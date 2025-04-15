@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block headscript %}
+{% endblock %}
+
+{% block body %}
+<script>
+    function uploadFile(event) {
+        event.preventDefault();
+        let formData = new FormData();
+        let fileInput = document.getElementById("file");
+        let messageDiv = document.getElementById("message");
+
+        if (fileInput.files.length === 0) {
+            messageDiv.innerText = "No file selected. Please choose a CSV file.";
+            return;
+        }
+
+        formData.append("file", fileInput.files[0]);
+
+        fetch("/", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("result").innerHTML = data;
+
+            // Extract filename from the response message and update file path field
+            let uploadedFileName = fileInput.files[0].name;
+            document.getElementById("file_path").value = "uploads/" + uploadedFileName; 
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    function trainModel(event) {
+        event.preventDefault();
+        let messageDiv = document.getElementById("message");
+        let filePath = document.getElementById("file_path").value;
+
+        if (!filePath) {
+            messageDiv.innerText = "No file uploaded. Please upload a file first.";
+            return;
+        }
+
+        let params = {
+            file_path: filePath,
+            model: document.getElementById("model").value,
+            itr: parseInt(document.getElementById("itr").value),
+            pred_len: parseInt(document.getElementById("pred_len").value),
+            learning_rate: parseFloat(document.getElementById("learning_rate").value),
+            train_epochs: parseInt(document.getElementById("train_epochs").value),
+            patience: parseInt(document.getElementById("patience").value),
+            d_model: parseInt(document.getElementById("d_model").value),
+            n_heads: parseInt(document.getElementById("n_heads").value),
+            e_layers: parseInt(document.getElementById("e_layers").value),
+            gpt_layers: parseInt(document.getElementById("gpt_layers").value),
+            d_ff: parseInt(document.getElementById("d_ff").value),
+            embed: document.getElementById("embed").value,
+            cos: document.getElementById("cos").checked,
+            tmax: parseInt(document.getElementById("tmax").value)
+        };
+
+        fetch("/train", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("result").innerText = "Training Completed! Results: " + JSON.stringify(data);
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+</head>
+<body>
+    <h2 class="page_title">Let's Forecast Data!</h2>
+
+    <div class="'steps">
+        <h2>Step 1: Upload your data.</h2>
+        <form class="uploadForm" id="uploadForm" onsubmit="uploadFile(event)">
+            <input type="file" id="file" name="file" accept=".csv">
+            <button type="submit">Upload</button>
+        </form>
+    
+        <div id="message"></div>
+    
+        <h2>Step 2: Select parameters.</h2>
+        <form class="trainForm" id="trainForm" onsubmit="trainModel(event)">
+            <label for="file_path">File Path (Auto-filled):</label>
+            <input type="text" id="file_path" name="file_path" readonly>
+    
+            <label for="model">Model:</label>
+            <select id="model" name="model">
+                <option value="PatchTST">PatchTST</option>
+                <option value="DLinear">DLinear</option>
+                <option value="GPT4TS">GPT4TS</option>
+            </select>
+    
+            <label for="itr">Iterations:</label>
+            <input type="number" id="itr" name="itr" value="1">
+    
+            <label for="pred_len">Prediction Length:</label>
+            <input type="number" id="pred_len" name="pred_len" value="96">
+    
+            <label for="learning_rate">Learning Rate:</label>
+            <input type="text" id="learning_rate" name="learning_rate" value="0.001">
+    
+            <label for="train_epochs">Train Epochs:</label>
+            <input type="number" id="train_epochs" name="train_epochs" value="10">
+    
+            <label for="patience">Patience:</label>
+            <input type="number" id="patience" name="patience" value="3">
+    
+            <label for="d_model">D Model:</label>
+            <input type="number" id="d_model" name="d_model" value="512">
+    
+            <label for="n_heads">N Heads:</label>
+            <input type="number" id="n_heads" name="n_heads" value="8">
+    
+            <label for="e_layers">E Layers:</label>
+            <input type="number" id="e_layers" name="e_layers" value="3">
+    
+            <label for="gpt_layers">GPT Layers:</label>
+            <input type="number" id="gpt_layers" name="gpt_layers" value="3">
+    
+            <label for="d_ff">D FF:</label>
+            <input type="number" id="d_ff" name="d_ff" value="2048">
+    
+            <label for="embed">Embedding:</label>
+            <select id="embed" name="embed">
+                <option value="timeF">timeF</option>
+                <option value="learned">learned</option>
+            </select>
+    
+            <label for="cos">Use Cosine LR Scheduler:</label>
+            <input class="checkbox" type="checkbox" id="cos" name="cos">
+    
+            <label for="tmax">TMax (for Cosine Scheduler):</label>
+            <input type="number" id="tmax" name="tmax" value="50">
+    
+            <button type="submit">Start Training</button>
+        </form>
+    </div>
+    
+
+    <div id="result"></div>
+</body>
+
+{% endblock %}
