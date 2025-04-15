@@ -59,7 +59,7 @@ h2 {
     padding: 20px 0;
     text-decoration: none;
     color: #1C2127;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal; 
 }
 
@@ -121,14 +121,15 @@ input[type="checkbox"] {
     transform: scale(1.2);
     margin-left: -100px;
     position: relative;
-    top: 30px;
+    top: 32px;
+    left: 180px;
 }
 
 
 
 
 button {
-    background: #ff914d;
+    background: #1C4B8F;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -139,7 +140,7 @@ button {
 }
 
 button:hover {
-    background: #e07b3d;
+    background: #1C4B8F;
 }
 
 @media (max-width: 768px) {
@@ -204,4 +205,38 @@ button:hover {
 .steps label {
     margin-top: 24px;
     margin-bottom: 12px;
+}
+
+.trainForm {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.trainForm input {
+    width: 150px;
+}
+
+
+.uploadForm {
+    display: flex;
+    width: 300px;
+    align-items: center;
+}
+
+.uploadForm input {
+    width: 220px;
+    display: flex;
+
+}
+
+.uploadForm button {
+    width: 200px;
+
+}
+
+.page_title {
+    font-size: 20px;
 }
